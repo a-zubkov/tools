@@ -1,7 +1,7 @@
 #!/bin/bash
 # Description: Восстановление ZAMMAD из резервной копии
 # Author:       Alex Zubkov
-# Version:      1.0
+# Version:      1.0.1
 
 # ПЕРЕМЕННЫЕ
 
@@ -218,8 +218,6 @@ case ${CONFIRM} in
     *)
         PrintStyle b "Восстановление отменено. \n"
         sleep 5
-        PrintStyle b "Ссыкота... \n"
-        sleep 5
         exit
     ;;
 esac
@@ -254,7 +252,7 @@ case ${CONFIRM} in
         PrintStyle y "\n"
     ;;
     *)
-        PrintStyle b "Жираф большой, ему видней... \n"
+        PrintStyle y "Файлы .env и docker-compose.override.yml не будут восстановлены \n"
         sleep 5
     ;;
 esac
