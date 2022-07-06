@@ -1,0 +1,65 @@
+---
+- name: create users and deploy ssh keys
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: create user account for Aleksei Zhukov
+      ansible.builtin.user:
+        name: a.zhukov
+        group: sudo
+        shell: /bin/bash
+        password: "$6$EtRaOHAYZXeQP/T8$zZ7gQJtAtcERFgtgJYNOBYUgU7XjBHJsAKHLvHl/DigcaK7qCMYuDfXWav2DcrkCQteBdcAy2W1feclRGN8500"
+
+    - name: deploy ssh public key for Aleksei Zhukov
+      ansible.posix.authorized_key:
+        user: a.zhukov
+        state: present
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFWTI1i37r6cVZuLwoKNMbOcKSTT5pgmx5Q4zGaiA0mq"
+
+    - name: create user account for Aleksei Zubkov
+      ansible.builtin.user:
+        name: a.zubkov
+        group: sudo
+        shell: /bin/bash
+        password: "$6$Wc2KGJoqOp6Fdu13$PqlKc1ix3qmJYjZlhJNtzblUKdwN1JvlTtyuA1I9pZV03lRsRYYjRf1N/X2U2iIbemb7a684iM/PJ5wCpt2sH0"
+
+    - name: deploy ssh public key for Aleksei Zubkov
+      ansible.posix.authorized_key:
+        user: a.zubkov
+        state: present
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQLlSu6A0JjML2M4wWl/IC5C7Vm1a/xWIqQqsvUNMvc"
+
+    - name: (SSHD) Disable password authentication for root
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin no'
+
+    - name: (SSHD) Disable password authentication for All
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PubkeyAuthentication'
+        line: 'PubkeyAuthentication yes'
+
+    - name: (SSHD) Disable password authentication for All
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+
+    - name: (SSHD) Disable password authentication for All
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PermitEmptyPasswords'
+        line: 'PermitEmptyPasswords no'
+
+    - name: (SSHD) restart sshd
+      service:
+        name: sshd
+        state: restarted
+
