@@ -31,35 +31,34 @@
         key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQLlSu6A0JjML2M4wWl/IC5C7Vm1a/xWIqQqsvUNMvc"
 
     - name: (SSHD) Disable password authentication for root
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
         state: present
         regexp: '^#?PermitRootLogin'
         line: 'PermitRootLogin no'
 
     - name: (SSHD) Disable password authentication for All
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
         state: present
         regexp: '^#?PubkeyAuthentication'
         line: 'PubkeyAuthentication yes'
 
     - name: (SSHD) Disable password authentication for All
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
         state: present
         regexp: '^#?PasswordAuthentication'
         line: 'PasswordAuthentication no'
 
     - name: (SSHD) Disable password authentication for All
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
         state: present
         regexp: '^#?PermitEmptyPasswords'
         line: 'PermitEmptyPasswords no'
 
     - name: (SSHD) restart sshd
-      service:
+      ansible.builtin.service:
         name: sshd
         state: restarted
-
