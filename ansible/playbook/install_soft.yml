@@ -1,0 +1,14 @@
+---
+- name: "Instal a minimum soft like a MC and other"
+  hosts: "vm"
+  become: yes
+
+  tasks:
+    - name: "Update cache"
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: "install MC"
+      ansible.builtin.apt:
+        name: "mc"
+        state: "latest"
