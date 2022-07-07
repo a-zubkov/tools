@@ -1,0 +1,12 @@
+---
+- name: "configure user environment"
+  hosts: "vm"
+  become: yes
+
+  tasks:
+    - name:
+    ansible.builtin.lineinfile:
+      path: "/home/a.zubkov/.bashrc"
+      state: "present"
+      regexp: "^#?#force_color_prompt"
+      line: "force_color_prompt=yes"
