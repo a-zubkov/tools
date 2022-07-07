@@ -17,7 +17,7 @@
         state: "present"
         key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFWTI1i37r6cVZuLwoKNMbOcKSTT5pgmx5Q4zGaiA0mq"
 
-    - name: "create user account for Aleksei Zubkov"
+    - name: "create user account for A.Zubkov"
       ansible.builtin.user:
         name: "a.zubkov"
         group: "sudo"
