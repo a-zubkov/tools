@@ -1,0 +1,38 @@
+---
+- name: "Configure SSH on a clean system"
+  hosts: "all"
+  become: yes
+
+  tasks:
+    - name: "(SSHD) Disable password authentication for root"
+      ansible.builtin.lineinfile:
+        path: "/etc/ssh/sshd_config"
+        state: "present"
+        regexp: "^#?PermitRootLogin"
+        line: "PermitRootLogin no"
+
+    - name: "(SSHD) Disable password authentication for All"
+      ansible.builtin.lineinfile:
+        path: "/etc/ssh/sshd_config"
+        state: "present"
+        regexp: "^#?PubkeyAuthentication"
+        line: "PubkeyAuthentication yes"
+
+    - name: ""(SSHD) Disable password authentication for All"
+      ansible.builtin.lineinfile:
+        path: "/etc/ssh/sshd_config"
+        state: "present"
+        regexp: "^#?PasswordAuthentication"
+        line: "PasswordAuthentication no"
+
+    - name: "(SSHD) Disable password authentication for All"
+      ansible.builtin.lineinfile:
+        path: "/etc/ssh/sshd_config"
+        state: "present"
+        regexp: "^#?PermitEmptyPasswords"
+        line: "PermitEmptyPasswords no"
+
+    - name: "(SSHD) restart sshd"
+      ansible.builtin.service:
+        name: "sshd"
+        state: "restarted"
