@@ -11,7 +11,7 @@
         regexp: "^#?PermitRootLogin"
         line: "PermitRootLogin no"
 
-    - name: "(SSHD) Disable password authentication for All"
+    - name: "(SSHD) Enable pubkey authentication"
       ansible.builtin.lineinfile:
         path: "/etc/ssh/sshd_config"
         state: "present"
@@ -25,7 +25,7 @@
         regexp: "^#?PasswordAuthentication"
         line: "PasswordAuthentication no"
 
-    - name: "(SSHD) Disable password authentication for All"
+    - name: "(SSHD) Permit empty passwords"
       ansible.builtin.lineinfile:
         path: "/etc/ssh/sshd_config"
         state: "present"
